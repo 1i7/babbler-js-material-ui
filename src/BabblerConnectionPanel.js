@@ -24,15 +24,15 @@ var BabblerConnectionPanel = React.createClass({
     },
     componentDidMount: function() {
         // слушаем статус устройства
-        this.babblerDeviceListener = function onStatusChange(status) {
+        this.deviceStatusListener = function(status) {
             this.setState({deviceStatus: status, portName: this.props.babblerDevice.deviceName()});
         }.bind(this);
-        this.props.babblerDevice.addOnStatusChangeListener(this.babblerDeviceListener);
+        this.props.babblerDevice.on(BabblerDevice.Event.STATUS, this.deviceStatusListener);
     },
     
     componentWillUnmount: function() {
         // почистим слушателей
-        this.props.babblerDevice.removeOnStatusChangeListener(this.babblerDeviceListener);
+        this.props.babblerDevice.removeListener(BabblerDevice.Event.STATUS, this.deviceStatusListener);
     },
     
     /** выбран другой порт в списке */

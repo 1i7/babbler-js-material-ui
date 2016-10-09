@@ -18,7 +18,7 @@ var BabblerConnectionErrorSnackbar = React.createClass({
     
     componentDidMount: function() {
         // слушаем статус устройства
-        this.babblerDeviceListener = function onStatusChange(status) {
+        this.deviceStatusListener = function(status) {
             // Показываем сообщение только если отключились с ошибкой
             var err = this.props.babblerDevice.deviceError();
             if(status === BabblerDevice.Status.DISCONNECTED && err != undefined) {
@@ -28,12 +28,12 @@ var BabblerConnectionErrorSnackbar = React.createClass({
                 });
             }
         }.bind(this);
-        this.props.babblerDevice.addOnStatusChangeListener(this.babblerDeviceListener);
+        this.props.babblerDevice.on(BabblerDevice.Event.STATUS, this.deviceStatusListener);
     },
     
     componentWillUnmount: function() {
         // почистим слушателей
-        this.props.babblerDevice.removeOnStatusChangeListener(this.babblerDeviceListener);
+        this.props.babblerDevice.removeListener(BabblerDevice.Event.STATUS, this.deviceStatusListener);
     },
     
     handleRequestClose: function () {

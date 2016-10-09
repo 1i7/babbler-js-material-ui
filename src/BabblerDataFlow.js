@@ -9,18 +9,11 @@ import BabblerDevice from 'babbler-js';
 var BabblerDataFlow = React.createClass({
     getInitialState: function() {
         return {
-            deviceStatus: this.props.babblerDevice.deviceStatus(),
             dataFlow: []
         };
     },
     
     componentDidMount: function() {
-        // слушаем статус устройства
-        this.babblerDeviceListener = function onStatusChange(status) {
-            this.setState({deviceStatus: status});
-        }.bind(this);
-        this.props.babblerDevice.addOnStatusChangeListener(this.babblerDeviceListener);
-        
         // счетчик элементов, нужен для идентификатора элементов
         this.itemKeyCounter = 0;
         
@@ -36,7 +29,7 @@ var BabblerDataFlow = React.createClass({
             var skip = false;
             // посмотрим фильтры, разрешено все, что явно не запрещено
             if(this.props.filter != undefined && this.props.filter.data != undefined) {
-                // задан фильтр по ошибкам, посмотрим, есть чего запрещенного
+                // задан фильтр по данным, посмотрим, есть чего запрещенного
                 if( (this.props.filter.data === false) ||
                     (dir === BabblerDevice.DataFlow.IN && this.props.filter.data.in === false) ||
                     (dir === BabblerDevice.DataFlow.OUT && this.props.filter.data.out === false) ||
@@ -85,10 +78,10 @@ var BabblerDataFlow = React.createClass({
                 this.setState({dataFlow: this.state.dataFlow});
             }
         }.bind(this);
-        this.props.babblerDevice.addOnDataListener(this.dataListener);
+        this.props.babblerDevice.on(BabblerDevice.Event.DATA, this.dataListener);
         
         // слушаем ошибки разбора данных устройства
-        this.dataErrorListener = function(data, error, dir) {
+        this.dataErrorListener = function(data, dir, error) {
             var skip = false;
             // посмотрим фильтры, разрешено все, что явно не запрещено
             if(this.props.filter != undefined && this.props.filter.err != undefined) {
@@ -122,18 +115,16 @@ var BabblerDataFlow = React.createClass({
                 this.setState({dataFlow: this.state.dataFlow});
             }
         }.bind(this);
-        this.props.babblerDevice.addOnDataErrorListener(this.dataErrorListener);
+        this.props.babblerDevice.on(BabblerDevice.Event.DATA_ERROR, this.dataErrorListener);
     },
     
     componentWillUnmount: function() {
         // почистим слушателей
-        this.props.babblerDevice.removeOnStatusChangeListener(this.babblerDeviceListener);
-        this.props.babblerDevice.removeOnDataListener(this.dataListener);
-        this.props.babblerDevice.removeOnDataErrorListener(this.dataParseErrorListener);
+        this.props.babblerDevice.removeListener(BabblerDevice.Event.DATA, this.dataListener);
+        this.props.babblerDevice.removeListener(BabblerDevice.Event.DATA_ERROR, this.dataParseErrorListener);
     },
     
     render: function() {
-        var connected = this.state.deviceStatus === BabblerDevice.Status.CONNECTED ? true : false;
         return (
             <div style={this.props.style}>
                 {this.state.dataFlow}
