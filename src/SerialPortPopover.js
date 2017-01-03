@@ -155,14 +155,13 @@ var SerialPortPopover = React.createClass({
             var filteredPorts = [];
             // отфильтруем лишние порты
             for(var i in ports) {
-                if(ports[i].manufacturer === "FTDI") {
+                //if(ports[i].manufacturer === "FTDI") {
                     filteredPorts.push(ports[i]);
-                }
+                //}
             }
             onListReady(filteredPorts);
         }.bind(this));
     }
-    
 });
 
 // отправляем компонент на публику
