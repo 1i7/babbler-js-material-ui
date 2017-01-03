@@ -58,10 +58,7 @@ var BabblerConnectionStatusIcon = React.createClass({
             // подключаемся
             return (
                 <span style={this.props.style}>
-                    <CircularProgress 
-                        size={iconSize/100} 
-                        // хак, чтобы не вылезала наверх
-                        style={{"verticalAlign": "middle"}} />
+                    <CircularProgress size={iconSize} />
                 </span>
             );
         } else {//if(this.state.deviceStatus === BabblerDevice.Status.CONNECTED) {
