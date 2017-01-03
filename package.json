@@ -18,6 +18,7 @@
     "babbler-js": "^0.3.0",
     "material-ui": "^0.16.3",
     "react": "^15.4.0",
+    "react-dom": "^15.4.0",
     "react-tap-event-plugin": "^2.0.0",
     "serialport": "^4.0.1"
   },
