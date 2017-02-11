@@ -9,6 +9,7 @@
     "lib/BabblerConnectionPanel.js",
     "lib/BabblerConnectionStatusIcon.js",
     "lib/BabblerDataFlow.js",
+    "lib/BabblerDebugPanel.js",
     "lib/SerialPortDropdown.js",
     "lib/SerialPortPopover.js",
     "README.md",
