@@ -37,7 +37,7 @@ import Divider from 'material-ui/Divider';
 ...
 
 // Babbler.js
-import BabblerDevice from 'babbler-js';
+import Babbler from 'babbler-js';
 
 // виджеты Babbler MaterialUI
 import BabblerConnectionStatusIcon from 'babbler-js-material-ui/lib/BabblerConnectionStatusIcon';
@@ -47,14 +47,17 @@ import BabblerDataFlow from 'babbler-js-material-ui/lib/BabblerDataFlow';
 
 ...
 
+// Устройство Babbler
+var babbler1 = new Babbler();
+
 // Контент приложения
 ReactDOM.render(
     <MuiThemeProvider muiTheme={getMuiTheme()}>
       <div>
         <Paper>
-            <BabblerConnectionPanel babblerDevice={babblerDevice1}/>
+            <BabblerConnectionPanel babbler={babbler1}/>
             <BabblerConnectionStatusIcon 
-                babblerDevice={babblerDevice1} 
+                babbler={babbler1} 
                 iconSize={50}
                 style={{position: "absolute", right: 0, marginRight: 14, marginTop: 5}} />
         </Paper>
@@ -63,14 +66,14 @@ ReactDOM.render(
         
         <Tabs>
             <Tab label="Лампочки" >
-                <BabblerLedControlPnl babblerDevice={babblerDevice1}/>
+                <BabblerLedControlPnl babbler={babbler1}/>
             </Tab>
             <Tab label="Отладка" >
-                <BabblerDebugPnl babblerDevice={babblerDevice1}/>
+                <BabblerDebugPnl babbler={babbler1}/>
             </Tab>
             <Tab label="Лог" >
                 <BabblerDataFlow 
-                    babblerDevice={babblerDevice1} 
+                    babbler={babbler1} 
                     reverseOrder={true}
                     maxItems={10000}
                     timestamp={true}
@@ -81,7 +84,7 @@ ReactDOM.render(
             </Tab>
         </Tabs>
         
-        <BabblerConnectionErrorSnackbar babblerDevice={babblerDevice1}/>
+        <BabblerConnectionErrorSnackbar babbler={babbler1}/>
       </div>
     </MuiThemeProvider>,
     document.getElementById('app-content')
