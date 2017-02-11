@@ -6,7 +6,7 @@ import FontIcon from 'material-ui/FontIcon';
 import {red200, green200} from 'material-ui/styles/colors';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import BabblerDevice from 'babbler-js';
+import Babbler from 'babbler-js';
 
 var BabblerConnectionStatusIcon = React.createClass({
 // http://www.material-ui.com/#/components/circular-progress
@@ -18,7 +18,7 @@ var BabblerConnectionStatusIcon = React.createClass({
 
     getInitialState: function() {
         return {
-            deviceStatus: this.props.babblerDevice.deviceStatus()
+            deviceStatus: this.props.babbler.deviceStatus
         };
     },
     componentDidMount: function() {
@@ -26,12 +26,12 @@ var BabblerConnectionStatusIcon = React.createClass({
         this.deviceStatusListener = function(status) {
             this.setState({deviceStatus: status});
         }.bind(this);
-        this.props.babblerDevice.on(BabblerDevice.Event.STATUS, this.deviceStatusListener);
+        this.props.babbler.on(Babbler.Event.STATUS, this.deviceStatusListener);
     },
     
     componentWillUnmount: function() {
         // почистим слушателей
-        this.props.babblerDevice.removeListener(BabblerDevice.Event.STATUS, this.deviceStatusListener);
+        this.props.babbler.removeListener(Babbler.Event.STATUS, this.deviceStatusListener);
     },
     
     /** выбран другой порт в списке */
@@ -42,7 +42,7 @@ var BabblerConnectionStatusIcon = React.createClass({
     render: function() {
         var iconSize = this.props.iconSize ? this.props.iconSize : 50;
     
-        if(this.state.deviceStatus === BabblerDevice.Status.DISCONNECTED) {
+        if(this.state.deviceStatus === Babbler.Status.DISCONNECTED) {
             // не подключены к устройству
             return (
                 <span style={this.props.style}>
@@ -54,14 +54,14 @@ var BabblerConnectionStatusIcon = React.createClass({
                 </span>
             );
             
-        } else if(this.state.deviceStatus === BabblerDevice.Status.CONNECTING) {
+        } else if(this.state.deviceStatus === Babbler.Status.CONNECTING) {
             // подключаемся
             return (
                 <span style={this.props.style}>
                     <CircularProgress size={iconSize} />
                 </span>
             );
-        } else {//if(this.state.deviceStatus === BabblerDevice.Status.CONNECTED) {
+        } else {//if(this.state.deviceStatus === Babbler.Status.CONNECTED) {
             // подключены
             return (
                 <span style={this.props.style}>

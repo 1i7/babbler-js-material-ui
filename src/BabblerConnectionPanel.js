@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import SerialPortPopover from './SerialPortPopover';
 //import SerialPortDropdown from './SerialPortDropdown';
 
-import BabblerDevice from 'babbler-js';
+import Babbler from 'babbler-js';
 
 const btnStyle = {
   margin: 12
@@ -18,21 +18,21 @@ var BabblerConnectionPanel = React.createClass({
 
     getInitialState: function() {
         return {
-            deviceStatus: this.props.babblerDevice.deviceStatus(),
-            portName: this.props.babblerDevice.deviceName()
+            deviceStatus: this.props.babbler.deviceStatus,
+            portName: this.props.babbler.deviceName
         };
     },
     componentDidMount: function() {
         // слушаем статус устройства
         this.deviceStatusListener = function(status) {
-            this.setState({deviceStatus: status, portName: this.props.babblerDevice.deviceName()});
+            this.setState({deviceStatus: status, portName: this.props.babbler.deviceName});
         }.bind(this);
-        this.props.babblerDevice.on(BabblerDevice.Event.STATUS, this.deviceStatusListener);
+        this.props.babbler.on(Babbler.Event.STATUS, this.deviceStatusListener);
     },
     
     componentWillUnmount: function() {
         // почистим слушателей
-        this.props.babblerDevice.removeListener(BabblerDevice.Event.STATUS, this.deviceStatusListener);
+        this.props.babbler.removeListener(Babbler.Event.STATUS, this.deviceStatusListener);
     },
     
     /** выбран другой порт в списке */
@@ -41,7 +41,7 @@ var BabblerConnectionPanel = React.createClass({
     },
     
     render: function() {
-        if(this.state.deviceStatus === BabblerDevice.Status.DISCONNECTED) {
+        if(this.state.deviceStatus === Babbler.Status.DISCONNECTED) {
             // не подключены к устройству
             
             // проверка на пустую строку: true, если undefined, null, 0, "", " ")
@@ -61,7 +61,7 @@ var BabblerConnectionPanel = React.createClass({
                 </span>
             );
             
-        } else if(this.state.deviceStatus === BabblerDevice.Status.CONNECTING) {
+        } else if(this.state.deviceStatus === Babbler.Status.CONNECTING) {
             // подключаемся
             return (
                 <span style={this.props.style}>
@@ -70,7 +70,7 @@ var BabblerConnectionPanel = React.createClass({
                     подключаем {this.state.portName}
                 </span>
             );
-        } else {//if(this.state.deviceStatus === BabblerDevice.Status.CONNECTED) {
+        } else {//if(this.state.deviceStatus === Babbler.Status.CONNECTED) {
             // подключены
             return (
                 <span style={this.props.style}>
@@ -83,12 +83,12 @@ var BabblerConnectionPanel = React.createClass({
 
     /** Подключиться к выбранному в списке устройству */
     connect: function() {
-        this.props.babblerDevice.connect(this.state.portName);
+        this.props.babbler.connect(this.state.portName);
     },
     
     /** Отключиться от устройства */
     disconnect: function() {
-        this.props.babblerDevice.disconnect();
+        this.props.babbler.disconnect();
     }
 });
 
