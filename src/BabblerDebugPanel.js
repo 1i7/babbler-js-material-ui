@@ -88,6 +88,7 @@ var BabblerDebugPanel = React.createClass({
                 <Subheader>Данные</Subheader>
                 <BabblerDataFlow
                     babbler={this.props.babbler}
+                    filter={this.props.filter}
                     maxItems={100}
                     reverseOrder={true}
                     timestamp={true}

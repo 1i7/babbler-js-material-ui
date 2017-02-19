@@ -31,10 +31,25 @@ var BabblerDataFlow = React.createClass({
             if(this.props.filter != undefined && this.props.filter.data != undefined) {
                 // задан фильтр по данным, посмотрим, есть чего запрещенного
                 if( (this.props.filter.data === false) ||
-                    (dir === Babbler.DataFlow.IN && this.props.filter.data.in === false) ||
-                    (dir === Babbler.DataFlow.OUT && this.props.filter.data.out === false) ||
-                    (dir === Babbler.DataFlow.QUEUE && this.props.filter.data.queue === false) ) {
+                      (dir === Babbler.DataFlow.IN && this.props.filter.data.in === false) ||
+                      (dir === Babbler.DataFlow.OUT && this.props.filter.data.out === false) ||
+                      (dir === Babbler.DataFlow.QUEUE && this.props.filter.data.queue === false) ) {
                     skip = true;
+                }
+                
+                // проверим фильтр по контенту
+                if(typeof this.props.filter.data.content === 'string' || 
+                      this.props.filter.data.content instanceof String) {
+                    if(data.indexOf(this.props.filter.data.content) >=0) {
+                        skip = true;
+                    }
+                } else if(this.props.filter.data.content instanceof Array) {
+                    for (var val in this.props.filter.data.content) {
+                        if(data.indexOf(this.props.filter.data.content[val]) >=0) {
+                           skip = true;
+                           break;
+                        }
+                    }
                 }
             }
             
@@ -87,10 +102,25 @@ var BabblerDataFlow = React.createClass({
             if(this.props.filter != undefined && this.props.filter.err != undefined) {
                 // задан фильтр по ошибкам, посмотрим, есть чего запрещенного
                 if( (this.props.filter.err === false) ||
-                    (dir === Babbler.DataFlow.IN && this.props.filter.err.in === false) ||
-                    (dir === Babbler.DataFlow.OUT && this.props.filter.err.out === false) ||
-                    (dir === Babbler.DataFlow.QUEUE && this.props.filter.err.queue === false) ) {
+                      (dir === Babbler.DataFlow.IN && this.props.filter.err.in === false) ||
+                      (dir === Babbler.DataFlow.OUT && this.props.filter.err.out === false) ||
+                      (dir === Babbler.DataFlow.QUEUE && this.props.filter.err.queue === false) ) {
                     skip = true;
+                }
+                
+                // проверим фильтр по контенту
+                if(typeof this.props.filter.err.content === 'string' || 
+                      this.props.filter.err.content instanceof String) {
+                    if(data.indexOf(this.props.filter.err.content) >=0) {
+                        skip = true;
+                    }
+                } else if(this.props.filter.err.content instanceof Array) {
+                    for (var val in this.props.filter.err.content) {
+                        if(data.indexOf(this.props.filter.err.content[val]) >=0) {
+                           skip = true;
+                           break;
+                        }
+                    }
                 }
             }
             
