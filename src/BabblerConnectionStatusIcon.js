@@ -45,32 +45,32 @@ var BabblerConnectionStatusIcon = React.createClass({
         if(this.state.deviceStatus === Babbler.Status.DISCONNECTED) {
             // не подключены к устройству
             return (
-                <span style={this.props.style}>
-                    <FontIcon 
-                        className="material-icons"
-                        style={{fontSize: iconSize}}
-                        color={red200}
-                    >highlight_off</FontIcon>
-                </span>
+                <FontIcon 
+                    className="material-icons"
+                    color={red200}
+                    style={{...this.props.style, 
+                        verticalAlign: "middle", 
+                        fontSize: iconSize}}
+                >highlight_off</FontIcon>
             );
             
         } else if(this.state.deviceStatus === Babbler.Status.CONNECTING) {
             // подключаемся
             return (
-                <span style={this.props.style}>
-                    <CircularProgress size={iconSize} />
-                </span>
+                <CircularProgress size={iconSize*0.9} 
+                    style={{...this.props.style,
+                        verticalAlign: "middle"}}/>
             );
         } else {//if(this.state.deviceStatus === Babbler.Status.CONNECTED) {
             // подключены
             return (
-                <span style={this.props.style}>
-                    <FontIcon 
-                        className="material-icons" 
-                        style={{fontSize: iconSize}}
-                        color={green200}
-                    >offline_pin</FontIcon>
-                </span>
+                <FontIcon 
+                    className="material-icons"
+                    color={green200}
+                    style={{...this.props.style, 
+                       verticalAlign: "middle", 
+                       fontSize: iconSize}}
+                >offline_pin</FontIcon>
             );
         }
     },
