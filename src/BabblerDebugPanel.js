@@ -64,17 +64,17 @@ var BabblerDebugPanel = React.createClass({
         return (
             <div style={{overflowY: "auto", height: 500}}>
                 <div>
-                    <TextField 
-                        hintText="cmd [params]" 
-                        value={this.state.cmdValue} 
-                        onChange={this.handleCmdChange} 
-                        onKeyDown={this.handleCmdKeyDown} 
-                        disabled={!connected} 
+                    <TextField
+                        hintText="cmd [params]"
+                        value={this.state.cmdValue}
+                        onChange={this.handleCmdChange}
+                        onKeyDown={this.handleCmdKeyDown}
+                        disabled={!connected}
                         fullWidth={true} />
                     <RaisedButton 
-                        label="Выполнить" 
-                        onClick={this.execCmd} 
-                        disabled={!connected || this.state.cmdValue.length == 0} 
+                        label="Выполнить"
+                        onClick={this.execCmd}
+                        disabled={!connected || this.state.cmdValue.length == 0}
                         style={btnStyle} />
                     <RaisedButton label="ping" onClick={this.cmdPing} disabled={!connected} style={btnStyle} />
                     <RaisedButton label="help" onClick={this.cmdHelp} disabled={!connected} style={btnStyle} />

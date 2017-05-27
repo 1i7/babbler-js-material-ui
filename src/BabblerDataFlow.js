@@ -129,7 +129,7 @@ var BabblerDataFlow = React.createClass({
                 var style = {color: red200};
                 
                 this.itemKeyCounter++;
-                var logElem = 
+                var logElem =
                     <span key={this.itemKeyCounter} style={style}>
                         {this.props.timestamp ? "[" + timestamp() + "] " : ""}{mark}{error.toString()}:<br/>
                         <span style={{fontStyle: "italic"}}>{data.toString()}</span><br/>
