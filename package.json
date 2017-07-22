@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "files": [
     "lib/index.js",
+    "lib/BabblerCmcQueueStatus.js",
     "lib/BabblerConnectionErrorSnackbar.js",
     "lib/BabblerConnectionPanel.js",
     "lib/BabblerConnectionStatusIcon.js",
