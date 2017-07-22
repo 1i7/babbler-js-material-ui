@@ -1,11 +1,11 @@
-// BabblerCmcQueueStatus.js
+// BabblerCmdQueueStatus.js
 
 var React = require('react');
 
 import Babbler from 'babbler-js';
 
 // Состояние очереди команд
-var BabblerCmcQueueStatus = React.createClass({
+var BabblerCmdQueueStatus = React.createClass({
 // https://facebook.github.io/react/docs/events.html
 
     getInitialState: function() {
@@ -56,5 +56,5 @@ var BabblerCmcQueueStatus = React.createClass({
 });
 
 // отправляем компонент на публику
-module.exports = BabblerCmcQueueStatus;
+module.exports = BabblerCmdQueueStatus;
 
